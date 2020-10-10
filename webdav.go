@@ -9,12 +9,12 @@ import (
 	wd "golang.org/x/net/webdav"
 
 	"github.com/hacdias/webdav/v3/lib"
-	"github.com/caddyserver/caddy"
-	"github.com/caddyserver/caddy/caddyhttp/httpserver"
+	"github.com/tmpim/casket"
+	"github.com/tmpim/casket/caskethttp/httpserver"
 )
 
 func init() {
-	caddy.RegisterPlugin("webdav", caddy.Plugin{
+	casket.RegisterPlugin("webdav", casket.Plugin{
 		ServerType: "http",
 		Action:     setup,
 	})
@@ -47,7 +47,7 @@ func (d WebDav) ServeHTTP(w http.ResponseWriter, r *http.Request) (int, error) {
 }
 
 // setup configures a new FileManager middleware instance.
-func setup(c *caddy.Controller) error {
+func setup(c *casket.Controller) error {
 	configs, err := parse(c)
 	if err != nil {
 		return err
@@ -60,7 +60,7 @@ func setup(c *caddy.Controller) error {
 	return nil
 }
 
-func parse(c *caddy.Controller) ([]*config, error) {
+func parse(c *casket.Controller) ([]*config, error) {
 	configs := []*config{}
 
 	for c.Next() {
